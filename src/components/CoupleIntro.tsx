@@ -1,47 +1,84 @@
+'use client';
+
+import React from 'react';
 import Image from 'next/image';
-import SectionDivider from './ui/SectionDivider';
+import { motion } from 'framer-motion';
 
 export default function CoupleIntro() {
     return (
-        // 1. Thiết lập section chính là relative để chứa các phần tử absolute bên trong
-        // Đặt min-height cao một chút (ví dụ 80vh) để ảnh nền hiển thị rõ nét
-        <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden px-4 py-20">
+        // Container full màn hình
+        <section className="relative w-full h-screen min-h-[600px] overflow-hidden">
 
-            {/* 2. Phần Ảnh Nền & Lớp Phủ */}
+            {/* 1. ẢNH NỀN (BACKGROUND) */}
             <div className="absolute inset-0 z-0">
-                {/* Sử dụng Next Image với prop 'fill' để làm background */}
+                {/* Bạn nhớ thay đường dẫn ảnh thật của bạn vào đây nhé */}
                 <Image
-                    src="/image/DSC03615.JPG" // Hãy thay bằng đường dẫn ảnh thật của bạn (ví dụ: "/images/couple-bg.jpg")
-                    alt="Wedding Couple Background"
+                    src="/image/DSC03615.JPG"
+                    alt="Wedding Background"
                     fill
-                    className="object-cover pointer-events-none" // object-cover giúp ảnh phủ kín khung mà không bị méo
-                    priority // Ưu tiên tải ảnh này vì nó nằm ở đầu trang
+                    className="object-cover object-center"
+                    priority
                 />
-                {/* Lớp phủ màu đen bán trong suốt để tăng độ tương phản cho chữ */}
-                <div className="absolute inset-0 bg-black/50"></div>
+                {/* Lớp phủ đen mờ để chữ nổi bật hơn */}
+                <div className="absolute inset-0 bg-black/40"></div>
             </div>
 
-            {/* 3. Nội dung Chữ (Đặt z-index cao hơn để nổi lên trên nền) */}
-            <div className="relative z-10 text-center text-white max-w-4xl mx-auto">
-                <p className="font-serif uppercase tracking-[0.3em] text-sm text-gray-200 mb-8 opacity-90">
-                    Trân Trọng Báo Tin Lễ Vu Quy
-                </p>
+            {/* 2. NỘI DUNG CHỮ (CENTER) */}
+            <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 w-full">
 
-                <div className="flex flex-col items-center gap-6 mb-12">
-                    {/* Tăng kích thước font và thêm drop-shadow để chữ nổi bật hơn */}
-                    <h2 className="font-script text-6xl md:text-8xl text-white drop-shadow-2xl">
-                        Nguyễn Thu Trang
-                    </h2>
-                    <span className="font-script text-4xl text-gray-300 opacity-80">&</span>
-                    <h2 className="font-script text-6xl md:text-8xl text-white drop-shadow-2xl">
-                        Phạm Sơn Tùng
-                    </h2>
-                </div>
+                {/* Dòng chữ nhỏ trên cùng */}
+                <motion.p
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}
+                    className="text-white/90 tracking-[0.2em] text-xs md:text-sm uppercase mb-4 font-serif"
+                >
+                    Trân trọng báo tin lễ vu quy
+                </motion.p>
 
-                {/* Divider đổi màu sang trắng/sáng để hợp với nền tối */}
-                <div className="text-white/80 scale-125">
+                {/* --- TÊN CÔ DÂU --- */}
+                <motion.h1
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                    // 👇 BÍ KÍP Ở ĐÂY:
+                    // 1. whitespace-nowrap: Cấm xuống dòng
+                    // 2. text-[10vw]: Cỡ chữ tự động bằng 10% chiều ngang màn hình (cực chuẩn cho mobile)
+                    // 3. md:text-7xl: Trên máy tính thì cố định cỡ to
+                    className="font-script text-white mb-2 whitespace-nowrap text-[11vw] sm:text-6xl md:text-7xl lg:text-8xl leading-tight"
+                >
+                    Nguyễn Thu Trang
+                </motion.h1>
 
-                </div>
+                {/* Dấu & */}
+                <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 1 }}
+                    className="font-script text-white/80 text-2xl md:text-4xl my-1"
+                >
+                    &
+                </motion.span>
+
+                {/* --- TÊN CHÚ RỂ --- */}
+                <motion.h1
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 1, delay: 1.5 }}
+                    // 👇 BÍ KÍP TƯƠNG TỰ
+                    className="font-script text-white mt-2 whitespace-nowrap text-[11vw] sm:text-6xl md:text-7xl lg:text-8xl leading-tight"
+                >
+                    Phạm Sơn Tùng
+                </motion.h1>
+
+                {/* Trái tim bay lung tung (Trang trí thêm) */}
+                <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="absolute bottom-10 text-white/50"
+                >
+                    <span className="text-xs tracking-widest uppercase">Vuốt xuống để xem tiếp</span>
+                </motion.div>
             </div>
         </section>
     );

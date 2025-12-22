@@ -20,7 +20,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-    title: "Thiệp Cưới",
+    title: "Thu Trang ❤️ Sơn Tùng Wedding",
     description: "Trân trọng kính mời tham dự lễ cưới",
 };
 

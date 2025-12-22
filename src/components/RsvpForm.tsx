@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import {motion, AnimatePresence, Variants, Easing} from 'framer-motion';
 import { Send, Heart } from 'lucide-react';
 import CustomSelect from './ui/Select'; // Import component vừa tách
 
 // --- CONFIG ANIMATION ---
-const smoothEase = [0.4, 0, 0.2, 1];
+const smoothEase : Easing = [0.4, 0, 0.2, 1];
 
-const containerVariants = {
+const containerVariants : Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
@@ -16,7 +16,7 @@ const containerVariants = {
     }
 };
 
-const itemVariants = {
+const itemVariants : Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: smoothEase } }
 };
