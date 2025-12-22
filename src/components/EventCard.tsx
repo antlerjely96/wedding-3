@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { MapPin, Clock } from 'lucide-react';
-import { motion } from 'framer-motion'; // Import framer-motion
+import { motion, Variants } from 'framer-motion'; // Import framer-motion
 import CountdownTimer from './CountdownTimer';
 
 interface EventCardProps {
@@ -18,7 +18,7 @@ interface EventCardProps {
 }
 
 // --- CẤU HÌNH ANIMATION ---
-const containerVariants = {
+const containerVariants : Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
@@ -29,7 +29,7 @@ const containerVariants = {
     }
 };
 
-const fadeInLeft = {
+const fadeInLeft : Variants = {
     hidden: { opacity: 0, x: -50 },
     visible: {
         opacity: 1, x: 0,
@@ -37,7 +37,7 @@ const fadeInLeft = {
     }
 };
 
-const fadeInRight = {
+const fadeInRight : Variants = {
     hidden: { opacity: 0, x: 50 },
     visible: {
         opacity: 1, x: 0,
@@ -45,7 +45,7 @@ const fadeInRight = {
     }
 };
 
-const zoomIn = {
+const zoomIn : Variants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: {
         opacity: 1, scale: 1,
@@ -53,7 +53,7 @@ const zoomIn = {
     }
 };
 
-const fadeInUp = {
+const fadeInUp : Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
         opacity: 1, y: 0,
