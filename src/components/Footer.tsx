@@ -21,7 +21,7 @@ export default function Footer() {
                     "Chúng mình vô cùng biết ơn vì bạn đã dành thời gian quý báu đến chung vui trong ngày trọng đại này."
                 </p>
                 <div className="pt-8">
-                    <h2 className="font-script text-6xl text-[#e8b4b8] drop-shadow-lg">Thank You</h2>
+                    <h2 className="font-script text-6xl text-[#e8b4b8] drop-shadow-lg">Trân trọng cảm ơn <span className="text-3xl">❤️❤️❤️</span></h2>
                     <p className="font-serif font-bold text-sm tracking-[0.2em] mt-4 uppercase opacity-80">Rất hân hạnh được đón tiếp</p>
                 </div>
             </div>

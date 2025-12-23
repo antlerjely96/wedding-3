@@ -43,7 +43,7 @@ export default function WeddingInvite() {
                 time="11:30"
                 lunarDate="Thứ 5, ngày 8 tháng 1 năm 2026"
                 locationName="Trung tâm tiệc cưới Trống Đồng"
-                address="Số 40, Hàng Cốt, Hoàn Kiếm, Hà Nội"
+                address="Số 40, Hàng Cót, Hoàn Kiếm, Hà Nội"
                 showCalendar={false}
 
                 mapLink='https://www.google.com/maps/place/Tr%E1%BB%91ng+%C4%90%E1%BB%93ng+Palace/@21.0377066,105.8444579,17z/data=!3m1!4b1!4m6!3m5!1s0x3135abb95cf9d3d1:0xf3f702ec451c57e2!8m2!3d21.0377066!4d105.8470382!16s%2Fg%2F11j4sw27ft?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D'

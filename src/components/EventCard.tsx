@@ -134,8 +134,22 @@ export default function EventCard({
                 {/* === CỘT TRÁI: THÔNG TIN CHÍNH === */}
                 <div className="space-y-6 text-center md:text-left order-2 md:order-1 h-full flex flex-col justify-center">
 
+                    <motion.p
+                        variants={fadeInLeft}
+                        className="font-serif text-gray-500 text-xs md:text-sm uppercase tracking-[0.2em] mb-1 whitespace-nowrap"
+                    >
+                        Trân trọng kính mời tới
+                    </motion.p>
                     {/* Tiêu đề bay từ trái vào */}
-                    <motion.h3 variants={fadeInLeft} className="font-script text-5xl text-[#CF351D] mb-4">
+                    {/* Tiêu đề bay từ trái vào */}
+                    <motion.h3
+                        variants={fadeInLeft}
+                        // 👇 SỬA DÒNG CLASSNAME NÀY:
+                        // 1. whitespace-nowrap: Bắt buộc 1 dòng
+                        // 2. text-[7vw]: Trên mobile chữ sẽ tự co giãn theo chiều ngang màn hình (khoảng 7%)
+                        // 3. sm:text-4xl md:text-5xl: Trên màn hình lớn hơn thì giữ cỡ cố định cho đẹp
+                        className="font-script text-[#CF351D] mb-4 whitespace-nowrap text-[8vw] sm:text-4xl md:text-5xl leading-tight"
+                    >
                         {title}
                     </motion.h3>
 

@@ -10,16 +10,15 @@ export default function HeroEnvelope() {
     // --- HIỆU ỨNG TỰ ĐỘNG SCROLL ---
     useEffect(() => {
         if (isOpen) {
-            // Tổng thời gian = Delay ban đầu (0.6s) + Thời gian animation (3s) + Chờ thêm (2s) = 5.6s
             const timer = setTimeout(() => {
-                const nextSectionTop = window.innerHeight; // Vị trí của màn hình tiếp theo
+                const nextSectionTop = window.innerHeight;
                 window.scrollTo({
                     top: nextSectionTop,
                     behavior: 'smooth'
                 });
-            }, 5600); // 5600ms
+            }, 5600);
 
-            return () => clearTimeout(timer); // Dọn dẹp nếu component bị unmount
+            return () => clearTimeout(timer);
         }
     }, [isOpen]);
 
@@ -33,7 +32,7 @@ export default function HeroEnvelope() {
                 className="mb-8 text-center relative z-10"
             >
                 <h1 className="font-script text-5xl md:text-6xl text-gray-800 mb-2">Save The Date</h1>
-                <p className="font-serif text-gray-500 italic">Mời bạn mở thiệp</p>
+                <p className="font-script text-gray-500 italic text-xl">T & T</p>
             </motion.div>
 
             {/* --- CONTAINER CHÍNH --- */}
@@ -47,16 +46,11 @@ export default function HeroEnvelope() {
                     className="absolute inset-0 w-full h-full"
                     style={{ transformStyle: 'preserve-3d' }}
                     variants={{
-                        closed: {
-                            rotate: 0,
-                            scale: 1,
-                            y: 0
-                        },
+                        closed: { rotate: 0, scale: 1, y: 0 },
                         opened: {
                             rotate: [0, 0, 0, -2],
                             scale: [1, 1, 1, 0.95],
                             y: [0, 0, 0, 40],
-
                             transition: {
                                 duration: 3,
                                 times: [0, 0.6, 0.7, 1],
@@ -68,26 +62,21 @@ export default function HeroEnvelope() {
                     initial="closed"
                     animate={isOpen ? "opened" : "closed"}
                 >
-                    {/* 1. LƯNG PHONG BÌ */}
-                    <div className="absolute inset-0 bg-[#Cdcac5] rounded-sm shadow-2xl" style={{ transform: 'translateZ(0px)' }}></div>
+                    {/* 1. LƯNG PHONG BÌ (Màu tối nhất để tạo chiều sâu) */}
+                    {/* Đã đổi từ #Cdcac5 sang #d1bfa7 */}
+                    <div className="absolute inset-0 bg-[#d1bfa7] rounded-sm shadow-2xl" style={{ transform: 'translateZ(0px)' }}></div>
 
                     {/* 2. TẤM THIỆP (CARD) */}
                     <motion.div
                         className="absolute top-[15%] left-[5%] w-[90%] h-[85%] bg-white rounded-sm shadow-md overflow-hidden"
                         style={{ transformStyle: 'preserve-3d' }}
                         variants={{
-                            closed: {
-                                y: 0,
-                                z: 2,
-                                rotate: 0,
-                                scale: 1
-                            },
+                            closed: { y: 0, z: 2, rotate: 0, scale: 1 },
                             opened: {
                                 y: [0, -400, -400, -25],
                                 z: [2, 2, 60, 60],
                                 rotate: [0, 0, 0, 2],
                                 scale: [1, 1, 1, 1],
-
                                 transition: {
                                     duration: 3,
                                     times: [0, 0.6, 0.7, 1],
@@ -107,9 +96,10 @@ export default function HeroEnvelope() {
                                 className="object-cover"
                                 priority
                             />
-                            {/* MẶT NẠ CHE ẢNH (Màu #E0DBD7) */}
+                            {/* MẶT NẠ CHE ẢNH (Màu sáng nhất trùng với nắp) */}
+                            {/* Đã đổi từ #E0DBD7 sang #f5e6d3 */}
                             <motion.div
-                                className="absolute inset-0 bg-[#E0DBD7] z-50"
+                                className="absolute inset-0 bg-[#f5e6d3] z-50"
                                 animate={{ opacity: isOpen ? 0 : 1 }}
                                 transition={{ duration: 0.5, delay: 0.5 }}
                             />
@@ -122,9 +112,12 @@ export default function HeroEnvelope() {
                         style={{ transform: 'translateZ(30px)' }}
                     >
                         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                            <path d="M0 100 L50 52 L100 100 Z" fill="#E0DBD7" />
-                            <path d="M0 0 L50 54 L0 100 Z" fill="#d6d3ce" />
-                            <path d="M100 0 L50 54 L100 100 Z" fill="#ccc8c4" />
+                            {/* Đáy phong bì - Màu sáng nhất (#f5e6d3) */}
+                            <path d="M0 100 L50 52 L100 100 Z" fill="#f5e6d3" />
+                            {/* Cạnh trái - Màu trung bình (#ebdcc6) */}
+                            <path d="M0 0 L50 54 L0 100 Z" fill="#ebdcc6" />
+                            {/* Cạnh phải - Màu tối hơn (#decab2) */}
+                            <path d="M100 0 L50 54 L100 100 Z" fill="#decab2" />
                         </svg>
                     </div>
 
@@ -140,13 +133,16 @@ export default function HeroEnvelope() {
                         }}
                     >
                         <div className="relative w-full h-full">
+                            {/* Mặt ngoài nắp - Màu sáng nhất (#f5e6d3) */}
                             <svg className="absolute inset-0 w-full h-full backface-hidden" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ backfaceVisibility: 'hidden' }}>
-                                <path d="M0 0 L100 0 L50 100 Z" fill="#E0DBD7" />
+                                <path d="M0 0 L100 0 L50 100 Z" fill="#f5e6d3" />
                                 <line x1="0" y1="0" x2="50" y2="100" stroke="rgba(0,0,0,0.05)" strokeWidth="1" />
                                 <line x1="100" y1="0" x2="50" y2="100" stroke="rgba(0,0,0,0.05)" strokeWidth="1" />
                             </svg>
+
+                            {/* Mặt trong nắp - Màu tối nhất trùng với lưng (#d1bfa7) */}
                             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ transform: 'rotateX(180deg)', backfaceVisibility: 'hidden' }}>
-                                <path d="M0 0 L100 0 L50 100 Z" fill="#Cdcac5" />
+                                <path d="M0 0 L100 0 L50 100 Z" fill="#d1bfa7" />
                             </svg>
                         </div>
                     </motion.div>
@@ -171,7 +167,8 @@ export default function HeroEnvelope() {
                                 className="object-cover rounded-full"
                                 priority
                             />
-                            <div className="absolute inset-0 rounded-full animate-ping opacity-20 bg-red-800 scale-90"></div>
+                            {/* Đổi màu hiệu ứng ping sang màu be đậm/vàng gold để hợp tông */}
+                            <div className="absolute inset-0 rounded-full animate-ping opacity-20 bg-[#c4a98b] scale-90"></div>
                         </div>
                     </motion.div>
                 )}

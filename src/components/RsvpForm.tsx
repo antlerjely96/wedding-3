@@ -40,7 +40,7 @@ export default function RsvpForm() {
     const guestOptions = [
         { label: "Nhà Trai", value: "groom" },
         { label: "Nhà Gái", value: "bride" },
-        { label: "Cả Hai Nhà", value: "both" }
+        // { label: "Cả Hai Nhà", value: "both" }
     ];
 
     const attendingOptions = [
