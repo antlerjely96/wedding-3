@@ -67,7 +67,7 @@ export default function RsvpForm() {
 
     // Data Select
     const guestOptions = [
-        { label: "Nhà Trai", value: "groom" },
+        // { label: "Nhà Trai", value: "groom" },
         { label: "Nhà Gái", value: "bride" },
     ];
     const attendingOptions = [
