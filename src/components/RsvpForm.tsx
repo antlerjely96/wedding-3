@@ -44,7 +44,7 @@ export default function RsvpForm() {
 
         try {
             // 2. Gọi API Spring Boot
-            const res = await fetch('http://localhost:8080/api/rsvp', {
+            const res = await fetch('https://wedding-3-backend.onrender.com/api/rsvp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
