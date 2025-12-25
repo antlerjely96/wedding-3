@@ -25,7 +25,7 @@ const allPhotos = [
 
     // Các ảnh tiếp theo sẽ bị đẩy sang cột 2, cột 3...
     { src: "/image/DSC03965.JPG", alt: "Ảnh Cưới 2", aspect: "aspect-[3.5/4]" },
-    { src: "/image/DSC04269.JPG", alt: "Ảnh Cưới 3", aspect: "aspect-[3/4]" },
+    { src: "/image/DSC03164.JPG", alt: "Ảnh Cưới 3", aspect: "aspect-[3/4]" },
     { src: "/image/DSC03779.JPG", alt: "Ảnh Cưới 4", aspect: "aspect-[2/3]" },
     { src: "/image/DSC03404.JPG", alt: "Ảnh Cưới 5", aspect: "aspect-[3/4]" },
 ];
@@ -38,13 +38,13 @@ export default function Album() {
     const galleryPhotos = allPhotos.slice(4);
 
     return (
-        <section className="py-24 px-4 bg-[#fdfbf7] overflow-hidden">
+        <section className="py-24 px-4 bg-[#F7E6CA] overflow-hidden">
             {/* --- HEADER --- */}
             <div className="text-center mb-20 relative z-10">
-                <h3 className="font-script text-6xl md:text-7xl text-gray-800 relative inline-block px-8 bg-[#fdfbf7] z-10">
+                <h3 className="font-script text-6xl md:text-7xl text-gray-800 relative inline-block px-8 bg-[#F7E3CA] z-10">
                     Khoảnh Khắc Hạnh Phúc
                 </h3>
-                <p className="font-serif text-gray-500 mt-4 tracking-wider uppercase text-sm">Album Ảnh Cưới</p>
+                <p className="font-serif text-gray-800 mt-4 tracking-wider uppercase text-sm">Album Ảnh Cưới</p>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-64 h-[1px] bg-[#8B1E29]/30 -z-0"></div>
             </div>
 
@@ -128,7 +128,7 @@ export default function Album() {
                 </div>
 
                 <div className="text-center mt-16">
-                    <p className="font-script text-3xl text-gray-400">Còn rất nhiều khoảnh khắc đẹp...</p>
+                    <p className="font-script text-3xl text-black">Còn rất nhiều khoảnh khắc đẹp...</p>
                 </div>
             </div>
 

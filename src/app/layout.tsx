@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Great_Vibes, Playfair_Display, Montserrat } from "next/font/google";
+import { Great_Vibes, Playfair_Display, Montserrat, Pinyon_Script, Dancing_Script, Sacramento } from "next/font/google";
 import "./globals.css";
 import FloatingHearts from "@/components/FloatingHearts";
 

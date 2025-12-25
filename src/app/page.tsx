@@ -12,7 +12,7 @@ import MusicPlayer from "@/components/MusicPlayer";
 
 export default function WeddingInvite() {
     return (
-        <main className="min-h-screen bg-[#fdfbf7] pb-0 overflow-x-hidden">
+        <main className="min-h-screen bg-[#F7E6CA] pb-0 overflow-x-hidden">
             {/* 1. Mở đầu */}
             <HeroEnvelope />
 

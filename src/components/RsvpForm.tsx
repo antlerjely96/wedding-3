@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import {motion, AnimatePresence, Variants, Easing} from 'framer-motion';
-import { Send, Heart } from 'lucide-react';
-import CustomSelect from './ui/Select'; // Import component vừa tách
+import { motion, AnimatePresence, Variants, Easing } from 'framer-motion';
+import { Send, Heart, Loader2, AlertCircle } from 'lucide-react';
+import CustomSelect from './ui/Select';
 
 // --- CONFIG ANIMATION ---
-const smoothEase : Easing = [0.4, 0, 0.2, 1];
+const smoothEase: Easing = [0.4, 0, 0.2, 1];
 
-const containerVariants : Variants = {
+const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
@@ -16,41 +16,67 @@ const containerVariants : Variants = {
     }
 };
 
-const itemVariants : Variants = {
+const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: smoothEase } }
 };
 
 export default function RsvpForm() {
+    // State dữ liệu
     const [formData, setFormData] = useState({
         name: '',
         guestOf: '',
         attending: '',
         message: ''
     });
-    const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    // State trạng thái
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [errorMessage, setErrorMessage] = useState('');
+
+    // --- HÀM GỬI FORM ---
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Giả lập gửi form
-        setTimeout(() => setIsSubmitted(true), 500);
+
+        // 1. Bật trạng thái loading
+        setStatus('loading');
+        setErrorMessage('');
+
+        try {
+            // 2. Gọi API Spring Boot
+            const res = await fetch('http://localhost:8080/api/rsvp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            // 3. Kiểm tra kết quả
+            if (res.ok) {
+                setStatus('success');
+                // Reset form sau khi gửi thành công (tùy chọn)
+                // setFormData({ name: '', guestOf: '', attending: '', message: '' });
+            } else {
+                throw new Error('Server returned error');
+            }
+        } catch (error) {
+            console.error("Lỗi gửi form:", error);
+            setStatus('error');
+            setErrorMessage('Có lỗi kết nối. Vui lòng kiểm tra lại mạng!');
+        }
     };
 
-    // Data cho các Select
+    // Data Select
     const guestOptions = [
         { label: "Nhà Trai", value: "groom" },
         { label: "Nhà Gái", value: "bride" },
-        // { label: "Cả Hai Nhà", value: "both" }
     ];
-
     const attendingOptions = [
         { label: "Chắc chắn rồi!", value: "yes" },
-        { label: "Có thể (Sẽ báo sau)", value: "maybe" },
         { label: "Tiếc quá, mình bận mất rồi", value: "no" }
     ];
 
     return (
-        <section className="py-12 md:py-20 bg-[#fdfbf7]">
+        <section className="py-12 md:py-20 bg-[#F7E6CA]">
             <div className="container mx-auto px-4 max-w-lg">
 
                 <motion.div
@@ -71,14 +97,38 @@ export default function RsvpForm() {
                     {/* Body */}
                     <div className="p-6 md:p-8">
                         <AnimatePresence mode="wait">
-                            {!isSubmitted ? (
+                            {status === 'success' ? (
+                                // --- MÀN HÌNH THÀNH CÔNG ---
+                                <motion.div
+                                    key="success"
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.5, ease: "backOut" }}
+                                    className="text-center py-10"
+                                >
+                                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <Heart className="text-green-500 w-10 h-10" fill="currentColor" />
+                                    </div>
+                                    <h3 className="text-2xl font-script text-gray-800 mb-2">Cảm ơn bạn!</h3>
+                                    <p className="text-gray-500 font-serif">Lời chúc của bạn đã được gửi đi thành công.</p>
+
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={() => setStatus('idle')}
+                                        className="mt-8 px-6 py-2 text-sm text-[#8B1E29] font-bold border border-[#8B1E29] rounded-full hover:bg-[#8B1E29] hover:text-white transition-colors"
+                                    >
+                                        Gửi thêm lời chúc khác
+                                    </motion.button>
+                                </motion.div>
+                            ) : (
+                                // --- MÀN HÌNH NHẬP FORM ---
                                 <motion.form
                                     key="form"
                                     onSubmit={handleSubmit}
                                     className="space-y-5"
                                     exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
                                 >
-
                                     {/* Input Name */}
                                     <motion.div variants={itemVariants}>
                                         <motion.input
@@ -92,7 +142,7 @@ export default function RsvpForm() {
                                         />
                                     </motion.div>
 
-                                    {/* Custom Select 1: Khách mời của ai */}
+                                    {/* Selects */}
                                     <motion.div variants={itemVariants} className="relative z-30">
                                         <CustomSelect
                                             options={guestOptions}
@@ -102,7 +152,6 @@ export default function RsvpForm() {
                                         />
                                     </motion.div>
 
-                                    {/* Custom Select 2: Tham dự */}
                                     <motion.div variants={itemVariants} className="relative z-20">
                                         <CustomSelect
                                             options={attendingOptions}
@@ -124,52 +173,33 @@ export default function RsvpForm() {
                                         ></motion.textarea>
                                     </motion.div>
 
-                                    {/* Buttons */}
+                                    {/* Error Message */}
+                                    {status === 'error' && (
+                                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-red-500 text-sm bg-red-50 p-3 rounded-lg">
+                                            <AlertCircle size={16} /> {errorMessage}
+                                        </motion.div>
+                                    )}
+
+                                    {/* Submit Button */}
                                     <motion.div variants={itemVariants} className="space-y-3 pt-2">
                                         <motion.button
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.95 }}
                                             type="submit"
-                                            className="w-full py-3.5 bg-[#8B1E29] text-white rounded-lg font-bold shadow-md hover:bg-[#a02330] transition-colors flex items-center justify-center gap-2"
+                                            disabled={status === 'loading'}
+                                            className={`w-full py-3.5 text-white rounded-lg font-bold shadow-md transition-colors flex items-center justify-center gap-2 ${
+                                                status === 'loading' ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#8B1E29] hover:bg-[#a02330]'
+                                            }`}
                                         >
-                                            <Send size={18} /> Gửi Lời Chúc
+                                            {status === 'loading' ? (
+                                                <><Loader2 className="animate-spin" size={18} /> Đang gửi...</>
+                                            ) : (
+                                                <><Send size={18} /> Gửi Lời Chúc</>
+                                            )}
                                         </motion.button>
-
-                                        {/*<motion.button*/}
-                                        {/*    whileHover={{ scale: 1.02 }}*/}
-                                        {/*    whileTap={{ scale: 0.95 }}*/}
-                                        {/*    type="button"*/}
-                                        {/*    className="w-full py-3.5 bg-[#FF6B6B] text-white rounded-lg font-bold shadow-md hover:bg-[#ff5252] transition-colors flex items-center justify-center gap-2"*/}
-                                        {/*>*/}
-                                        {/*    <Heart size={18} fill="white" /> Gửi Mừng Cưới*/}
-                                        {/*</motion.button>*/}
                                     </motion.div>
 
                                 </motion.form>
-                            ) : (
-                                // Success Message
-                                <motion.div
-                                    key="success"
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.5, ease: "backOut" }}
-                                    className="text-center py-10"
-                                >
-                                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                        <Heart className="text-green-500 w-10 h-10" fill="currentColor" />
-                                    </div>
-                                    <h3 className="text-2xl font-script text-gray-800 mb-2">Cảm ơn bạn!</h3>
-                                    <p className="text-gray-500 font-serif">Lời chúc của bạn đã được gửi đi thành công.</p>
-
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={() => setIsSubmitted(false)}
-                                        className="mt-8 px-6 py-2 text-sm text-[#8B1E29] font-bold border border-[#8B1E29] rounded-full hover:bg-[#8B1E29] hover:text-white transition-colors"
-                                    >
-                                        Gửi thêm lời chúc khác
-                                    </motion.button>
-                                </motion.div>
                             )}
                         </AnimatePresence>
                     </div>
