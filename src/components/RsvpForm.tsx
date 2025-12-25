@@ -112,14 +112,14 @@ export default function RsvpForm() {
                                     <h3 className="text-2xl font-script text-gray-800 mb-2">Cảm ơn bạn!</h3>
                                     <p className="text-gray-500 font-serif">Lời chúc của bạn đã được gửi đi thành công.</p>
 
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={() => setStatus('idle')}
-                                        className="mt-8 px-6 py-2 text-sm text-[#8B1E29] font-bold border border-[#8B1E29] rounded-full hover:bg-[#8B1E29] hover:text-white transition-colors"
-                                    >
-                                        Gửi thêm lời chúc khác
-                                    </motion.button>
+                                    {/*<motion.button*/}
+                                    {/*    whileHover={{ scale: 1.05 }}*/}
+                                    {/*    whileTap={{ scale: 0.95 }}*/}
+                                    {/*    onClick={() => setStatus('idle')}*/}
+                                    {/*    className="mt-8 px-6 py-2 text-sm text-[#8B1E29] font-bold border border-[#8B1E29] rounded-full hover:bg-[#8B1E29] hover:text-white transition-colors"*/}
+                                    {/*>*/}
+                                    {/*    Gửi thêm lời chúc khác*/}
+                                    {/*</motion.button>*/}
                                 </motion.div>
                             ) : (
                                 // --- MÀN HÌNH NHẬP FORM ---
